@@ -55,8 +55,15 @@ function mapDashboardResponse(response) {
 }
 
 export async function getDashboardData() {
-  // TODO(integração front-back): buscar os dados no endpoint GET /api/dashboard.
-  // O JSON deve seguir o contrato demonstrado em data/dashboard.mock.js.
+  /*
+   * TODO(integração front-back): substituir somente a linha do mock abaixo por:
+   *
+   * const response = await fetch("URL_DA_API/api/dashboard");
+   * if (!response.ok) throw new Error("Erro ao carregar o dashboard.");
+   * const dashboardResponse = await response.json();
+   *
+   * O JSON deve seguir o contrato demonstrado em data/dashboard.mock.js.
+   */
   const dashboardResponse = dashboardMockResponse;
 
   return mapDashboardResponse(dashboardResponse);
