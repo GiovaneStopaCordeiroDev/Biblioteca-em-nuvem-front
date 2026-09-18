@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/inter-latin.woff2") format("woff2");
+}
+
 *,
 *::before,
 *::after {
@@ -32,13 +40,27 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+button {
+  border: 0;
+}
+
 img,
 svg {
   display: block;
   max-width: 100%;
 }
 
-.app {
-  min-height: 100vh;
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgb(95 122 97 / 35%);
+  outline-offset: 2px;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

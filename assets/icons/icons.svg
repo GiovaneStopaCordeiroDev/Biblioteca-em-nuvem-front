@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="book" viewBox="0 0 24 24">
+    <path d="M5 3.75h11.75A2.25 2.25 0 0 1 19 6v14.25H6.25A3.25 3.25 0 0 1 3 17V5.75A2 2 0 0 1 5 3.75Zm0 11.07A3.23 3.23 0 0 1 6.25 14.5H17V6a.25.25 0 0 0-.25-.25H5v9.07Zm1.25 1.68a1.25 1.25 0 0 0 0 2.5H17v-2.5H6.25Z" fill="currentColor"/>
+    <path d="M7.5 7.5h6.75v1.75H7.5V7.5Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="check-square" viewBox="0 0 24 24">
+    <path d="M5.75 3.5h12.5A2.25 2.25 0 0 1 20.5 5.75v12.5a2.25 2.25 0 0 1-2.25 2.25H5.75a2.25 2.25 0 0 1-2.25-2.25V5.75A2.25 2.25 0 0 1 5.75 3.5Z" fill="currentColor"/>
+    <path d="m7.3 12.1 3.02 3.02 6.38-6.37-1.42-1.42-4.96 4.97-1.6-1.61-1.42 1.41Z" fill="white"/>
+  </symbol>
+  <symbol id="refresh" viewBox="0 0 24 24">
+    <path d="M12 4.25a7.73 7.73 0 0 1 5.45 2.23V4.25h2v5.7h-5.7v-2h2.35A5.76 5.76 0 0 0 6.3 10.5H4.25A7.76 7.76 0 0 1 12 4.25Zm5.7 9.25h2.05A7.76 7.76 0 0 1 6.55 17.52v2.23h-2v-5.7h5.7v2H7.9a5.76 5.76 0 0 0 9.8-2.55Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="students" viewBox="0 0 24 24">
+    <path d="m12 3 9 4.5-9 4.5-9-4.5L12 3Zm-5.25 8.12L12 13.75l5.25-2.63V15c0 2.1-2.35 3.75-5.25 3.75S6.75 17.1 6.75 15v-3.88Z" fill="currentColor"/>
+    <path d="M19.25 9.5h1.5v6h-1.5v-6Z" fill="currentColor"/>
+  </symbol>
+</svg>
