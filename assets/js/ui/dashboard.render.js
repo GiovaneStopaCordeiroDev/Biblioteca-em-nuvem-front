@@ -50,17 +50,16 @@ function createBookItem(book) {
 }
 
 function createQuickAction(action) {
-  const button = document.createElement("button");
+  const link = document.createElement("a");
   const label = document.createElement("span");
 
-  button.className = "quick-action";
-  button.type = "button";
-  button.dataset.action = action.id;
-  button.setAttribute("aria-label", `${action.label} — ação demonstrativa`);
+  link.className = "quick-action";
+  link.href = action.href;
+  link.dataset.action = action.id;
   label.textContent = action.label;
 
-  button.append(createIcon(action.icon, "quick-action__icon"), label);
-  return button;
+  link.append(createIcon(action.icon, "quick-action__icon"), label);
+  return link;
 }
 
 export function renderDashboard({ summaries, recentBooks, quickActions }) {

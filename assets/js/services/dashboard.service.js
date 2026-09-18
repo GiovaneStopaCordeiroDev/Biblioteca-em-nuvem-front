@@ -47,9 +47,19 @@ function mapDashboardResponse(response) {
       }),
     })),
     quickActions: [
-      { id: "manage-books", label: "Gerenciar livros", icon: "book" },
-      { id: "view-loans", label: "Consultar empréstimos", icon: "history" },
-      { id: "new-loan", label: "Novo empréstimo", icon: "refresh" },
+      { id: "manage-books", label: "Gerenciar livros", icon: "book", href: "livros.html" },
+      {
+        id: "view-loans",
+        label: "Consultar empréstimos",
+        icon: "history",
+        href: "emprestimos.html",
+      },
+      {
+        id: "new-loan",
+        label: "Novo empréstimo",
+        icon: "refresh",
+        href: "emprestimos.html#novo",
+      },
     ],
   };
 }
