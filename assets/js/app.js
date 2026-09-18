@@ -1,5 +1,6 @@
 import { getDashboardData } from "./services/dashboard.service.js";
 import { renderDashboard } from "./ui/dashboard.render.js";
+import { initializeLayout } from "./ui/layout.js";
 
 async function initializeDashboard() {
   try {
@@ -10,5 +11,9 @@ async function initializeDashboard() {
   }
 }
 
-initializeDashboard();
+initializeLayout();
+
+if (document.querySelector("#summary-cards")) {
+  initializeDashboard();
+}
 
