@@ -10,8 +10,12 @@
   <symbol id="refresh" viewBox="0 0 24 24">
     <path d="M12 4.25a7.73 7.73 0 0 1 5.45 2.23V4.25h2v5.7h-5.7v-2h2.35A5.76 5.76 0 0 0 6.3 10.5H4.25A7.76 7.76 0 0 1 12 4.25Zm5.7 9.25h2.05A7.76 7.76 0 0 1 6.55 17.52v2.23h-2v-5.7h5.7v2H7.9a5.76 5.76 0 0 0 9.8-2.55Z" fill="currentColor"/>
   </symbol>
-  <symbol id="students" viewBox="0 0 24 24">
-    <path d="m12 3 9 4.5-9 4.5-9-4.5L12 3Zm-5.25 8.12L12 13.75l5.25-2.63V15c0 2.1-2.35 3.75-5.25 3.75S6.75 17.1 6.75 15v-3.88Z" fill="currentColor"/>
-    <path d="M19.25 9.5h1.5v6h-1.5v-6Z" fill="currentColor"/>
+  <symbol id="overdue" viewBox="0 0 24 24">
+    <path d="M12 2.75A9.25 9.25 0 1 1 2.75 12 9.26 9.26 0 0 1 12 2.75Zm0 2A7.25 7.25 0 1 0 19.25 12 7.26 7.26 0 0 0 12 4.75Z" fill="currentColor"/>
+    <path d="M11 7h2v6h-2V7Zm0 8h2v2h-2v-2Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="history" viewBox="0 0 24 24">
+    <path d="M12 4.25a7.75 7.75 0 1 1-7.36 10.18l1.9-.63A5.75 5.75 0 1 0 8 7.68L10.25 10H3.5V3.25l3.08 3.08A7.72 7.72 0 0 1 12 4.25Z" fill="currentColor"/>
+    <path d="M11 7.5h2v4.09l2.7 2.7-1.41 1.42L11 12.41V7.5Z" fill="currentColor"/>
   </symbol>
 </svg>
