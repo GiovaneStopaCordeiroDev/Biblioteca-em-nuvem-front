@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Gestão de livros da Biblioteca Escolar" />
+    <title>Livros | Biblioteca Escolar</title>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/pages.css" />
+  </head>
+  <body data-page="books">
+    <a class="skip-link" href="#main-content">Ir para o conteúdo principal</a>
+    <header id="site-header"></header>
+    <div class="app-shell">
+      <aside id="site-sidebar"></aside>
+      <div class="app-column">
+        <main id="main-content" class="page-shell">
+          <div class="page-container">
+            <header class="page-heading">
+              <h1 class="page-heading__title">Livros</h1>
+              <p class="page-heading__description">Gerencie o acervo da biblioteca.</p>
+            </header>
+            <section class="placeholder-panel" aria-labelledby="placeholder-title">
+              <span class="placeholder-panel__badge">Página em construção</span>
+              <h2 id="placeholder-title" class="placeholder-panel__title">
+                Estrutura preparada para o módulo de livros
+              </h2>
+              <p class="placeholder-panel__description">
+                A listagem, os filtros e os formulários de cadastro e edição serão adicionados nesta
+                área.
+              </p>
+            </section>
+          </div>
+        </main>
+        <footer id="site-footer"></footer>
+      </div>
+    </div>
+    <button
+      id="sidebar-overlay"
+      class="sidebar-overlay"
+      type="button"
+      aria-label="Fechar menu lateral"
+      tabindex="-1"
+    ></button>
+    <script type="module" src="assets/js/app.js"></script>
+  </body>
+</html>
+
