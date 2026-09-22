@@ -18,19 +18,90 @@
       <div class="app-column">
         <main id="main-content" class="page-shell">
           <div class="page-container">
-            <header class="page-heading">
-              <h1 class="page-heading__title">Livros</h1>
-              <p class="page-heading__description">Gerencie o acervo da biblioteca.</p>
+            <header class="page-heading page-heading--actions">
+              <div>
+                <h1 class="page-heading__title">Livros</h1>
+                <p class="page-heading__description">
+                  Gerencie o acervo conectado à API.
+                </p>
+              </div>
+              <button
+                id="book-create"
+                class="button button--primary"
+                type="button"
+              >
+                Cadastrar livro
+              </button>
             </header>
-            <section class="placeholder-panel" aria-labelledby="placeholder-title">
-              <span class="placeholder-panel__badge">Página em construção</span>
-              <h2 id="placeholder-title" class="placeholder-panel__title">
-                Estrutura preparada para o módulo de livros
-              </h2>
-              <p class="placeholder-panel__description">
-                A listagem, os filtros e os formulários de cadastro e edição serão adicionados nesta
-                área.
+
+            <div
+              id="page-message"
+              class="page-message"
+              role="status"
+              hidden
+            ></div>
+
+            <section class="data-panel" aria-labelledby="books-list-title">
+              <div class="data-panel__header">
+                <div>
+                  <h2 id="books-list-title" class="data-panel__title">
+                    Acervo
+                  </h2>
+                  <p class="data-panel__description">
+                    Busque por título, autor ou ISBN.
+                  </p>
+                </div>
+                <form id="books-search-form" class="filter-form" role="search">
+                  <label class="sr-only" for="books-search"
+                    >Buscar livros</label
+                  >
+                  <input
+                    id="books-search"
+                    name="search"
+                    type="search"
+                    placeholder="Buscar livros"
+                  />
+                  <button class="button button--secondary" type="submit">
+                    Buscar
+                  </button>
+                </form>
+              </div>
+
+              <p id="books-loading" class="loading-message" hidden>
+                Carregando livros…
               </p>
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Título</th>
+                      <th scope="col">Autor</th>
+                      <th scope="col">ISBN</th>
+                      <th scope="col">Categoria</th>
+                      <th scope="col">Disponível/total</th>
+                      <th scope="col">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="books-table-body"></tbody>
+                </table>
+              </div>
+              <div class="pagination" aria-label="Paginação dos livros">
+                <button
+                  id="books-previous"
+                  class="button button--secondary"
+                  type="button"
+                >
+                  Anterior
+                </button>
+                <span id="books-page-label" class="pagination__label"></span>
+                <button
+                  id="books-next"
+                  class="button button--secondary"
+                  type="button"
+                >
+                  Próxima
+                </button>
+              </div>
             </section>
           </div>
         </main>
@@ -44,7 +115,67 @@
       aria-label="Fechar menu lateral"
       tabindex="-1"
     ></button>
+
+    <dialog
+      id="book-dialog"
+      class="form-dialog"
+      aria-labelledby="book-dialog-title"
+    >
+      <form id="book-form" class="entity-form">
+        <div class="form-dialog__header">
+          <div>
+            <h2 id="book-dialog-title">Cadastrar livro</h2>
+            <p>Informe os dados do título e a quantidade de exemplares.</p>
+          </div>
+        </div>
+        <div
+          id="book-form-message"
+          class="page-message page-message--error"
+          role="alert"
+          hidden
+        ></div>
+        <input name="id" type="hidden" />
+        <input name="versao" type="hidden" />
+        <div class="form-grid">
+          <label class="field field--wide">
+            <span>Título</span>
+            <input name="titulo" maxlength="200" required />
+          </label>
+          <label class="field">
+            <span>Autor</span>
+            <input name="autor" maxlength="150" required />
+          </label>
+          <label class="field">
+            <span>ISBN</span>
+            <input name="isbn" maxlength="32" placeholder="978-0-306-40615-7" />
+          </label>
+          <label class="field">
+            <span>Categoria</span>
+            <input name="categoria" maxlength="80" />
+          </label>
+          <label class="field">
+            <span>Quantidade total</span>
+            <input
+              name="quantidadeTotal"
+              type="number"
+              min="1"
+              max="1000000"
+              required
+            />
+          </label>
+        </div>
+        <div class="form-actions">
+          <button
+            id="book-dialog-cancel"
+            class="button button--secondary"
+            type="button"
+          >
+            Cancelar
+          </button>
+          <button class="button button--primary" type="submit">Salvar</button>
+        </div>
+      </form>
+    </dialog>
     <script type="module" src="assets/js/app.js"></script>
   </body>
 </html>
-

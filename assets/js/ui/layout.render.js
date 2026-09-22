@@ -4,7 +4,12 @@ const NAVIGATION_GROUPS = Object.freeze([
     items: [
       { id: "home", label: "Início", href: "index.html", icon: "home" },
       { id: "books", label: "Livros", href: "livros.html", icon: "book" },
-      { id: "loans", label: "Empréstimos", href: "emprestimos.html", icon: "refresh" },
+      {
+        id: "loans",
+        label: "Empréstimos",
+        href: "emprestimos.html",
+        icon: "refresh",
+      },
     ],
   },
   {
@@ -88,11 +93,11 @@ export function renderLayout(activePage) {
       <button class="topbar__notification" type="button" aria-label="Notificações">
         ${iconMarkup("bell", "topbar__icon")}
       </button>
-      <div class="topbar__profile" aria-label="Usuário atual: Administrador da biblioteca">
-        <span class="topbar__avatar" aria-hidden="true">A</span>
+      <div id="current-user" class="topbar__profile" aria-label="Carregando usuário atual">
+        <span id="current-user-avatar" class="topbar__avatar" aria-hidden="true">…</span>
         <div class="topbar__profile-copy">
-          <span class="topbar__profile-name">Administrador</span>
-          <span class="topbar__profile-role">Biblioteca</span>
+          <span id="current-user-name" class="topbar__profile-name">Conectando…</span>
+          <span id="current-user-role" class="topbar__profile-role">Biblioteca</span>
         </div>
       </div>
     </div>
@@ -124,3 +129,28 @@ export function renderLayout(activePage) {
   `;
 }
 
+export function renderCurrentUser(user) {
+  const profile = document.querySelector("#current-user");
+  const avatar = document.querySelector("#current-user-avatar");
+  const name = document.querySelector("#current-user-name");
+  const role = document.querySelector("#current-user-role");
+  if (!profile || !avatar || !name || !role) return;
+
+  const initials = user.nome
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+  avatar.textContent = initials || "U";
+  name.textContent = user.nome;
+  role.textContent = user.demonstracao
+    ? `${user.perfil} · demonstração`
+    : user.perfil;
+  profile.setAttribute(
+    "aria-label",
+    `Usuário atual: ${user.nome}, ${user.perfil}`,
+  );
+  document.body.dataset.profile = user.perfil;
+}

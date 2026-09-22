@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Gestão de empréstimos da Biblioteca Escolar" />
+    <meta
+      name="description"
+      content="Gestão de empréstimos da Biblioteca Escolar"
+    />
     <title>Empréstimos | Biblioteca Escolar</title>
     <link rel="stylesheet" href="assets/css/tokens.css" />
     <link rel="stylesheet" href="assets/css/base.css" />
@@ -18,19 +21,98 @@
       <div class="app-column">
         <main id="main-content" class="page-shell">
           <div class="page-container">
-            <header class="page-heading">
-              <h1 class="page-heading__title">Empréstimos</h1>
-              <p class="page-heading__description">Acompanhe empréstimos e devoluções.</p>
+            <header class="page-heading page-heading--actions">
+              <div>
+                <h1 class="page-heading__title">Empréstimos</h1>
+                <p class="page-heading__description">
+                  Registre retiradas, renovações e devoluções.
+                </p>
+              </div>
+              <button
+                id="loan-create"
+                class="button button--primary"
+                type="button"
+              >
+                Novo empréstimo
+              </button>
             </header>
-            <section class="placeholder-panel" aria-labelledby="placeholder-title">
-              <span class="placeholder-panel__badge">Página em construção</span>
-              <h2 id="placeholder-title" class="placeholder-panel__title">
-                Estrutura preparada para o módulo de empréstimos
-              </h2>
-              <p class="placeholder-panel__description">
-                O registro do nome do aluno, a retirada, a devolução e o histórico serão adicionados
-                nesta área.
+
+            <div
+              id="page-message"
+              class="page-message"
+              role="status"
+              hidden
+            ></div>
+
+            <section class="data-panel" aria-labelledby="loans-list-title">
+              <div class="data-panel__header">
+                <div>
+                  <h2 id="loans-list-title" class="data-panel__title">
+                    Histórico
+                  </h2>
+                  <p class="data-panel__description">
+                    Consulte por aluno, livro ou situação.
+                  </p>
+                </div>
+                <form id="loans-filter-form" class="filter-form">
+                  <label class="sr-only" for="loans-search"
+                    >Buscar empréstimos</label
+                  >
+                  <input
+                    id="loans-search"
+                    name="search"
+                    type="search"
+                    placeholder="Aluno ou livro"
+                  />
+                  <label class="sr-only" for="loans-status">Situação</label>
+                  <select id="loans-status" name="status">
+                    <option value="">Todos</option>
+                    <option value="Ativo">Ativos</option>
+                    <option value="Atrasado">Em atraso</option>
+                    <option value="Devolvido">Devolvidos</option>
+                    <option value="Cancelado">Cancelados</option>
+                  </select>
+                  <button class="button button--secondary" type="submit">
+                    Filtrar
+                  </button>
+                </form>
+              </div>
+
+              <p id="loans-loading" class="loading-message" hidden>
+                Carregando empréstimos…
               </p>
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Aluno</th>
+                      <th scope="col">Livro</th>
+                      <th scope="col">Empréstimo</th>
+                      <th scope="col">Prazo</th>
+                      <th scope="col">Situação</th>
+                      <th scope="col">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="loans-table-body"></tbody>
+                </table>
+              </div>
+              <div class="pagination" aria-label="Paginação dos empréstimos">
+                <button
+                  id="loans-previous"
+                  class="button button--secondary"
+                  type="button"
+                >
+                  Anterior
+                </button>
+                <span id="loans-page-label" class="pagination__label"></span>
+                <button
+                  id="loans-next"
+                  class="button button--secondary"
+                  type="button"
+                >
+                  Próxima
+                </button>
+              </div>
             </section>
           </div>
         </main>
@@ -44,7 +126,64 @@
       aria-label="Fechar menu lateral"
       tabindex="-1"
     ></button>
+
+    <dialog
+      id="loan-dialog"
+      class="form-dialog"
+      aria-labelledby="loan-dialog-title"
+    >
+      <form id="loan-form" class="entity-form">
+        <div class="form-dialog__header">
+          <div>
+            <h2 id="loan-dialog-title">Novo empréstimo</h2>
+            <p>Digite o nome do aluno e selecione um livro disponível.</p>
+          </div>
+        </div>
+        <div
+          id="loan-form-message"
+          class="page-message page-message--error"
+          role="alert"
+          hidden
+        ></div>
+        <div class="form-grid">
+          <label class="field field--wide">
+            <span>Aluno</span>
+            <input
+              id="loan-student-name"
+              name="alunoNome"
+              type="text"
+              maxlength="150"
+              autocomplete="name"
+              required
+            />
+          </label>
+          <label class="field field--wide">
+            <span>Livro</span>
+            <select id="loan-book" name="livroId" required></select>
+          </label>
+          <label class="field">
+            <span>Data prevista de devolução</span>
+            <input name="dataPrevistaDevolucao" type="date" />
+          </label>
+          <label class="field field--wide">
+            <span>Observação</span>
+            <textarea name="observacao" maxlength="500" rows="3"></textarea>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button
+            id="loan-dialog-cancel"
+            class="button button--secondary"
+            type="button"
+          >
+            Cancelar
+          </button>
+          <button class="button button--primary" type="submit">
+            Registrar
+          </button>
+        </div>
+      </form>
+    </dialog>
     <script type="module" src="assets/js/app.js"></script>
   </body>
 </html>
-

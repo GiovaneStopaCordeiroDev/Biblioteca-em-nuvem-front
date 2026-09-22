@@ -20,16 +20,62 @@
           <div class="page-container">
             <header class="page-heading">
               <h1 class="page-heading__title">Configurações</h1>
-              <p class="page-heading__description">Ajuste as preferências do sistema.</p>
-            </header>
-            <section class="placeholder-panel" aria-labelledby="placeholder-title">
-              <span class="placeholder-panel__badge">Página em construção</span>
-              <h2 id="placeholder-title" class="placeholder-panel__title">
-                Estrutura preparada para as configurações
-              </h2>
-              <p class="placeholder-panel__description">
-                As opções gerais da Biblioteca Escolar serão organizadas nesta área.
+              <p class="page-heading__description">
+                Ajuste as preferências do sistema.
               </p>
+            </header>
+            <div
+              id="page-message"
+              class="page-message"
+              role="status"
+              hidden
+            ></div>
+            <section
+              class="data-panel settings-panel"
+              aria-labelledby="connection-title"
+            >
+              <h2 id="connection-title" class="data-panel__title">
+                Conexão com a API
+              </h2>
+              <p class="data-panel__description">
+                Em produção, configure a URL no arquivo
+                <code>assets/js/runtime-config.js</code>. O valor abaixo permite
+                testar outra API neste navegador.
+              </p>
+              <form id="connection-form" class="entity-form settings-form">
+                <label class="field field--wide">
+                  <span>URL base da API</span>
+                  <input name="apiBaseUrl" type="url" required />
+                  <small
+                    >Inclua o caminho de versão, por exemplo:
+                    https://api.exemplo.com/api/v1</small
+                  >
+                </label>
+                <label class="field field--wide">
+                  <span>Access token temporário</span>
+                  <input
+                    name="accessToken"
+                    type="password"
+                    autocomplete="off"
+                  />
+                  <small
+                    >Usado apenas nesta aba. Em produção, será preenchido pelo
+                    login do Supabase.</small
+                  >
+                </label>
+                <div class="form-actions">
+                  <button
+                    id="connection-reset"
+                    class="button button--secondary"
+                    type="button"
+                  >
+                    Restaurar padrão
+                  </button>
+                  <button class="button button--primary" type="submit">
+                    Salvar e testar
+                  </button>
+                </div>
+              </form>
             </section>
           </div>
         </main>
@@ -46,4 +92,3 @@
     <script type="module" src="assets/js/app.js"></script>
   </body>
 </html>
-
