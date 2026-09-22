@@ -210,13 +210,16 @@ body.sidebar-collapsed .sidebar {
   height: 2.75rem;
   place-items: center;
   border-radius: var(--radius-md);
-  color: var(--color-surface);
-  background: var(--color-primary);
+  border: 1px solid rgb(95 122 97 / 18%);
+  background: var(--color-primary-light);
+  overflow: hidden;
 }
 
-.sidebar__logo-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+.sidebar__logo-image {
+  width: 145%;
+  height: 145%;
+  max-width: none;
+  object-fit: contain;
 }
 
 .sidebar__brand-name {

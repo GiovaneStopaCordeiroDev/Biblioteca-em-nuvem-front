@@ -108,7 +108,7 @@ export function renderLayout(activePage) {
   sidebar.innerHTML = `
     <div class="sidebar__brand">
       <span class="sidebar__logo">
-        ${iconMarkup("library", "sidebar__logo-icon")}
+        <img class="sidebar__logo-image" src="assets/images/logo-biblioteca.png" alt="" />
       </span>
       <p class="sidebar__brand-name">Biblioteca</p>
       <button id="sidebar-close" class="sidebar__close" type="button" aria-label="Fechar menu">
