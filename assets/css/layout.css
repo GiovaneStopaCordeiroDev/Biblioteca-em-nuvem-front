@@ -158,11 +158,6 @@
   font-weight: 700;
 }
 
-.topbar__profile-role {
-  color: var(--color-text-muted);
-  font-size: 0.75rem;
-}
-
 .app-shell {
   display: grid;
   min-height: calc(100vh - var(--topbar-height));

@@ -94,7 +94,6 @@ export function renderLayout(activePage) {
         <span id="current-user-avatar" class="topbar__avatar" aria-hidden="true">…</span>
         <div class="topbar__profile-copy">
           <span id="current-user-name" class="topbar__profile-name">Conectando…</span>
-          <span id="current-user-role" class="topbar__profile-role">Biblioteca</span>
         </div>
       </div>
       <button id="logout-button" class="topbar__logout" type="button">
@@ -133,8 +132,7 @@ export function renderCurrentUser(user) {
   const profile = document.querySelector("#current-user");
   const avatar = document.querySelector("#current-user-avatar");
   const name = document.querySelector("#current-user-name");
-  const role = document.querySelector("#current-user-role");
-  if (!profile || !avatar || !name || !role) return;
+  if (!profile || !avatar || !name) return;
 
   const initials = user.nome
     .split(/\s+/)
@@ -145,9 +143,6 @@ export function renderCurrentUser(user) {
     .toUpperCase();
   avatar.textContent = initials || "U";
   name.textContent = user.nome;
-  role.textContent = user.demonstracao
-    ? `${user.perfil} · demonstração`
-    : user.perfil;
   profile.setAttribute(
     "aria-label",
     `Usuário atual: ${user.nome}, ${user.perfil}`,
