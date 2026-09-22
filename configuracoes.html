@@ -2,9 +2,11 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' http://localhost:5080; font-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Configurações da Biblioteca Escolar" />
     <title>Configurações | Biblioteca Escolar</title>
+    <link rel="icon" href="assets/images/logo-biblioteca.png" type="image/png" />
     <link rel="stylesheet" href="assets/css/tokens.css" />
     <link rel="stylesheet" href="assets/css/base.css" />
     <link rel="stylesheet" href="assets/css/layout.css" />
@@ -20,16 +22,50 @@
           <div class="page-container">
             <header class="page-heading">
               <h1 class="page-heading__title">Configurações</h1>
-              <p class="page-heading__description">Ajuste as preferências do sistema.</p>
-            </header>
-            <section class="placeholder-panel" aria-labelledby="placeholder-title">
-              <span class="placeholder-panel__badge">Página em construção</span>
-              <h2 id="placeholder-title" class="placeholder-panel__title">
-                Estrutura preparada para as configurações
-              </h2>
-              <p class="placeholder-panel__description">
-                As opções gerais da Biblioteca Escolar serão organizadas nesta área.
+              <p class="page-heading__description">
+                Ajuste as preferências do sistema.
               </p>
+            </header>
+            <div
+              id="page-message"
+              class="page-message"
+              role="status"
+              hidden
+            ></div>
+            <section
+              class="data-panel settings-panel"
+              aria-labelledby="connection-title"
+            >
+              <h2 id="connection-title" class="data-panel__title">
+                Conexão com a API
+              </h2>
+              <p class="data-panel__description">
+                A URL é definida no arquivo
+                <code>assets/js/runtime-config.js</code> do ambiente publicado.
+              </p>
+              <form id="connection-form" class="entity-form settings-form">
+                <p class="required-fields-note">
+                  <span aria-hidden="true">*</span> Campos obrigatórios
+                </p>
+                <label class="field field--wide">
+                  <span
+                    >URL base da API
+                    <span class="required-marker" aria-hidden="true"
+                      >*</span
+                    ></span
+                  >
+                  <input name="apiBaseUrl" type="url" readonly required />
+                  <small
+                    >Inclua o caminho de versão, por exemplo:
+                    https://api.exemplo.com/api/v1</small
+                  >
+                </label>
+                <div class="form-actions">
+                  <button class="button button--primary" type="submit">
+                    Testar conexão
+                  </button>
+                </div>
+              </form>
             </section>
           </div>
         </main>
@@ -46,4 +82,3 @@
     <script type="module" src="assets/js/app.js"></script>
   </body>
 </html>
-

@@ -1,4 +1,4 @@
-import { dashboardMockResponse } from "../data/dashboard.mock.js";
+import { apiRequest } from "../core/api-client.js";
 
 const STATUS_VIEW = Object.freeze({
   disponivel: { status: "available", statusLabel: "Disponível" },
@@ -18,8 +18,8 @@ function mapDashboardResponse(response) {
       {
         id: "available-books",
         title: "Disponíveis",
-        value: response.livrosDisponiveis,
-        description: "Livros disponíveis",
+        value: response.exemplaresDisponiveis,
+        description: `${response.totalExemplares} exemplares no acervo`,
         icon: "check-square",
       },
       {
@@ -47,7 +47,12 @@ function mapDashboardResponse(response) {
       }),
     })),
     quickActions: [
-      { id: "manage-books", label: "Gerenciar livros", icon: "book", href: "livros.html" },
+      {
+        id: "manage-books",
+        label: "Gerenciar livros",
+        icon: "book",
+        href: "livros.html",
+      },
       {
         id: "view-loans",
         label: "Consultar empréstimos",
@@ -65,17 +70,18 @@ function mapDashboardResponse(response) {
 }
 
 export async function getDashboardData() {
-  /*
-   * TODO(integração front-back): substituir somente a linha do mock abaixo por:
-   *
-   * const response = await fetch("URL_DA_API/api/dashboard");
-   * if (!response.ok) throw new Error("Erro ao carregar o dashboard.");
-   * const dashboardResponse = await response.json();
-   *
-   * O JSON deve seguir o contrato demonstrado em data/dashboard.mock.js.
-   */
-  const dashboardResponse = dashboardMockResponse;
+  const [dashboardResponse, booksPage] = await Promise.all([
+    apiRequest("/dashboard"),
+    apiRequest("/livros?page=1&pageSize=5"),
+  ]);
 
-  return mapDashboardResponse(dashboardResponse);
+  return mapDashboardResponse({
+    ...dashboardResponse,
+    livrosRecentes: booksPage.items.map((book) => ({
+      id: book.id,
+      titulo: book.titulo,
+      autor: book.autor,
+      status: book.quantidadeDisponivel > 0 ? "disponivel" : "emprestado",
+    })),
+  });
 }
-

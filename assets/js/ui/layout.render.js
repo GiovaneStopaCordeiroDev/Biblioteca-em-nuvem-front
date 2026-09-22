@@ -2,9 +2,14 @@ const NAVIGATION_GROUPS = Object.freeze([
   {
     label: "Menu principal",
     items: [
-      { id: "home", label: "Início", href: "index.html", icon: "home" },
+      { id: "home", label: "Início", href: "dashboard.html", icon: "home" },
       { id: "books", label: "Livros", href: "livros.html", icon: "book" },
-      { id: "loans", label: "Empréstimos", href: "emprestimos.html", icon: "refresh" },
+      {
+        id: "loans",
+        label: "Empréstimos",
+        href: "emprestimos.html",
+        icon: "refresh",
+      },
     ],
   },
   {
@@ -85,16 +90,15 @@ export function renderLayout(activePage) {
     </div>
 
     <div class="topbar__right">
-      <button class="topbar__notification" type="button" aria-label="Notificações">
-        ${iconMarkup("bell", "topbar__icon")}
-      </button>
-      <div class="topbar__profile" aria-label="Usuário atual: Administrador da biblioteca">
-        <span class="topbar__avatar" aria-hidden="true">A</span>
+      <div id="current-user" class="topbar__profile" aria-label="Carregando usuário atual">
+        <span id="current-user-avatar" class="topbar__avatar" aria-hidden="true">…</span>
         <div class="topbar__profile-copy">
-          <span class="topbar__profile-name">Administrador</span>
-          <span class="topbar__profile-role">Biblioteca</span>
+          <span id="current-user-name" class="topbar__profile-name">Conectando…</span>
         </div>
       </div>
+      <button id="logout-button" class="topbar__logout" type="button">
+        Sair
+      </button>
     </div>
   `;
 
@@ -103,7 +107,7 @@ export function renderLayout(activePage) {
   sidebar.innerHTML = `
     <div class="sidebar__brand">
       <span class="sidebar__logo">
-        ${iconMarkup("library", "sidebar__logo-icon")}
+        <img class="sidebar__logo-image" src="assets/images/logo-biblioteca.png" alt="" />
       </span>
       <p class="sidebar__brand-name">Biblioteca</p>
       <button id="sidebar-close" class="sidebar__close" type="button" aria-label="Fechar menu">
@@ -124,3 +128,24 @@ export function renderLayout(activePage) {
   `;
 }
 
+export function renderCurrentUser(user) {
+  const profile = document.querySelector("#current-user");
+  const avatar = document.querySelector("#current-user-avatar");
+  const name = document.querySelector("#current-user-name");
+  if (!profile || !avatar || !name) return;
+
+  const initials = user.nome
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+  avatar.textContent = initials || "U";
+  name.textContent = user.nome;
+  profile.setAttribute(
+    "aria-label",
+    `Usuário atual: ${user.nome}, ${user.perfil}`,
+  );
+  document.body.dataset.profile = user.perfil;
+}
