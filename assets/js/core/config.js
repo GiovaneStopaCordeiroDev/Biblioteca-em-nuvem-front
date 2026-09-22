@@ -1,7 +1,6 @@
 import { runtimeConfig } from "../runtime-config.js";
 
-const API_URL_OVERRIDE_KEY = "biblioteca.apiBaseUrl";
-const ACCESS_TOKEN_KEY = "biblioteca.accessToken";
+const SESSION_KEY = "biblioteca.session";
 
 function storageValue(storage, key) {
   try {
@@ -30,31 +29,40 @@ function normalizeApiBaseUrl(value) {
 }
 
 export function getApiBaseUrl() {
-  const override = storageValue(window.localStorage, API_URL_OVERRIDE_KEY);
-  return normalizeApiBaseUrl(override || runtimeConfig.apiBaseUrl);
-}
-
-export function setApiBaseUrlOverride(value) {
-  const normalized = normalizeApiBaseUrl(value);
-  window.localStorage.setItem(API_URL_OVERRIDE_KEY, normalized);
-  return normalized;
-}
-
-export function clearApiBaseUrlOverride() {
-  window.localStorage.removeItem(API_URL_OVERRIDE_KEY);
+  return normalizeApiBaseUrl(runtimeConfig.apiBaseUrl);
 }
 
 export function getAccessToken() {
-  return storageValue(window.sessionStorage, ACCESS_TOKEN_KEY)?.trim() || null;
+  const session = getSession();
+  if (!session || session.expiresAt <= Date.now()) {
+    clearSession();
+    return null;
+  }
+  return session.accessToken;
 }
 
-export function setAccessToken(value) {
-  const normalized = String(value ?? "").trim();
-  if (normalized) {
-    window.sessionStorage.setItem(ACCESS_TOKEN_KEY, normalized);
-  } else {
-    window.sessionStorage.removeItem(ACCESS_TOKEN_KEY);
+export function getSession() {
+  try {
+    const value = storageValue(window.sessionStorage, SESSION_KEY);
+    if (!value) return null;
+    const session = JSON.parse(value);
+    return typeof session?.accessToken === "string" && Number.isFinite(session?.expiresAt)
+      ? session
+      : null;
+  } catch {
+    return null;
   }
+}
+
+export function setSession({ accessToken, expiraEm }) {
+  window.sessionStorage.setItem(
+    SESSION_KEY,
+    JSON.stringify({ accessToken, expiresAt: Date.parse(expiraEm) }),
+  );
+}
+
+export function clearSession() {
+  window.sessionStorage.removeItem(SESSION_KEY);
 }
 
 export function getRequestTimeoutMs() {

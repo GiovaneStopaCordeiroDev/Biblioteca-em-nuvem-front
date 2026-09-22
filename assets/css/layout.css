@@ -113,6 +113,27 @@
   gap: 0.75rem;
 }
 
+.topbar__logout {
+  min-height: 2.5rem;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  color: var(--color-primary-dark);
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.topbar__logout:hover {
+  color: var(--color-surface);
+  background: var(--color-primary-dark);
+}
+
+.topbar__logout:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
 .topbar__avatar {
   display: grid;
   width: 2.75rem;

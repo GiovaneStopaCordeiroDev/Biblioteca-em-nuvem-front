@@ -49,9 +49,7 @@ function renderBooks(page) {
     const group = document.createElement("div");
     group.className = "table-actions";
     group.append(actionButton("Editar", "edit", book.id));
-    if (document.body.dataset.profile === "Administrador") {
-      group.append(actionButton("Excluir", "delete", book.id, "danger"));
-    }
+    group.append(actionButton("Excluir", "delete", book.id, "danger"));
     actions.append(group);
     row.append(
       textCell(book.titulo),

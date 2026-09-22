@@ -65,10 +65,7 @@ function renderLoans(page) {
         group.append(actionButton("Renovar", "renew", loan.id));
       }
     }
-    if (
-      loan.status !== "Cancelado" &&
-      document.body.dataset.profile === "Administrador"
-    ) {
+    if (loan.status !== "Cancelado") {
       group.append(actionButton("Cancelar", "cancel", loan.id, "danger"));
     }
     actions.append(group);

@@ -2,7 +2,7 @@ const NAVIGATION_GROUPS = Object.freeze([
   {
     label: "Menu principal",
     items: [
-      { id: "home", label: "Início", href: "index.html", icon: "home" },
+      { id: "home", label: "Início", href: "dashboard.html", icon: "home" },
       { id: "books", label: "Livros", href: "livros.html", icon: "book" },
       {
         id: "loans",
@@ -90,9 +90,6 @@ export function renderLayout(activePage) {
     </div>
 
     <div class="topbar__right">
-      <button class="topbar__notification" type="button" aria-label="Notificações">
-        ${iconMarkup("bell", "topbar__icon")}
-      </button>
       <div id="current-user" class="topbar__profile" aria-label="Carregando usuário atual">
         <span id="current-user-avatar" class="topbar__avatar" aria-hidden="true">…</span>
         <div class="topbar__profile-copy">
@@ -100,6 +97,9 @@ export function renderLayout(activePage) {
           <span id="current-user-role" class="topbar__profile-role">Biblioteca</span>
         </div>
       </div>
+      <button id="logout-button" class="topbar__logout" type="button">
+        Sair
+      </button>
     </div>
   `;
 

@@ -2,6 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' http://localhost:5080; font-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Gestão de livros da Biblioteca Escolar" />
     <title>Livros | Biblioteca Escolar</title>
@@ -136,13 +137,22 @@
         ></div>
         <input name="id" type="hidden" />
         <input name="versao" type="hidden" />
+        <p class="required-fields-note">
+          <span aria-hidden="true">*</span> Campos obrigatórios
+        </p>
         <div class="form-grid">
           <label class="field field--wide">
-            <span>Título</span>
+            <span
+              >Título
+              <span class="required-marker" aria-hidden="true">*</span></span
+            >
             <input name="titulo" maxlength="200" required />
           </label>
           <label class="field">
-            <span>Autor</span>
+            <span
+              >Autor
+              <span class="required-marker" aria-hidden="true">*</span></span
+            >
             <input name="autor" maxlength="150" required />
           </label>
           <label class="field">
@@ -154,7 +164,10 @@
             <input name="categoria" maxlength="80" />
           </label>
           <label class="field">
-            <span>Quantidade total</span>
+            <span
+              >Quantidade total
+              <span class="required-marker" aria-hidden="true">*</span></span
+            >
             <input
               name="quantidadeTotal"
               type="number"

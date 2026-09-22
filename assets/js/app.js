@@ -7,6 +7,18 @@ import { initializeLoansPage } from "./pages/emprestimos.page.js";
 import { initializeSettingsPage } from "./pages/configuracoes.page.js";
 import { getCurrentUser } from "./services/usuarios.service.js";
 import { renderCurrentUser } from "./ui/layout.render.js";
+import { getAccessToken } from "./core/config.js";
+import { logout } from "./services/autenticacao.service.js";
+
+const LOGIN_PAGE = "index.html";
+
+function redirectToLogin() {
+  const currentPage = window.location.pathname.split("/").pop() || "dashboard.html";
+  const returnTo = `${currentPage}${window.location.hash}`;
+  window.location.replace(
+    `${LOGIN_PAGE}?returnTo=${encodeURIComponent(returnTo)}`,
+  );
+}
 
 async function initializeDashboard() {
   try {
@@ -18,8 +30,6 @@ async function initializeDashboard() {
   }
 }
 
-initializeLayout();
-
 const pageInitializers = {
   home: initializeDashboard,
   books: initializeBooksPage,
@@ -27,17 +37,38 @@ const pageInitializers = {
   settings: initializeSettingsPage,
 };
 
-const initializePage = pageInitializers[document.body.dataset.page];
-Promise.resolve()
-  .then(async () => {
+async function initializeAuthenticatedApplication() {
+  if (!getAccessToken()) {
+    redirectToLogin();
+    return;
+  }
+
+  initializeLayout();
+  document.querySelector("#logout-button")?.addEventListener("click", async () => {
+    const button = document.querySelector("#logout-button");
+    button.disabled = true;
     try {
-      renderCurrentUser(await getCurrentUser());
-    } catch (error) {
-      console.warn("Não foi possível identificar o operador atual.", error);
+      await logout();
+    } finally {
+      window.location.replace(LOGIN_PAGE);
     }
-  })
-  .then(() => initializePage?.())
-  .catch((error) => {
-    console.error("Não foi possível inicializar a página.", error);
-    showGlobalError(error);
   });
+
+  const currentUser = await getCurrentUser();
+  renderCurrentUser(currentUser);
+  const initializePage = pageInitializers[document.body.dataset.page];
+  await initializePage?.();
+}
+
+window.addEventListener("biblioteca:session-expired", redirectToLogin, {
+  once: true,
+});
+
+initializeAuthenticatedApplication().catch((error) => {
+  if (error?.status === 401) {
+    redirectToLogin();
+    return;
+  }
+  console.error("Não foi possível inicializar a página.", error);
+  showGlobalError(error);
+});

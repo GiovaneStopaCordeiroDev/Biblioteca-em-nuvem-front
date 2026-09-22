@@ -1,4 +1,5 @@
 import {
+  clearSession,
   getAccessToken,
   getApiBaseUrl,
   getRequestTimeoutMs,
@@ -34,14 +35,14 @@ async function parseResponse(response) {
   return text || null;
 }
 
-export async function apiRequest(path, { method = "GET", body } = {}) {
+export async function apiRequest(path, { method = "GET", body, anonymous = false } = {}) {
   const controller = new AbortController();
   const timeout = window.setTimeout(
     () => controller.abort(),
     getRequestTimeoutMs(),
   );
   const headers = new Headers({ Accept: "application/json" });
-  const token = getAccessToken();
+  const token = anonymous ? null : getAccessToken();
   if (token) headers.set("Authorization", `Bearer ${token}`);
   if (body !== undefined) headers.set("Content-Type", "application/json");
 
@@ -55,6 +56,10 @@ export async function apiRequest(path, { method = "GET", body } = {}) {
     });
     const payload = await parseResponse(response);
     if (!response.ok) {
+      if (response.status === 401 && !anonymous) {
+        clearSession();
+        window.dispatchEvent(new CustomEvent("biblioteca:session-expired"));
+      }
       throw new ApiError(errorMessage(payload, response.status), {
         status: response.status,
         details: payload,
